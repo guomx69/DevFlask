@@ -1,0 +1,25 @@
+#https://stackoverflow.com/questions/66205577/how-do-i-add-postgis-to-my-postgresql-setup-using-pure-docker-compose
+
+version: '3'
+
+services:
+  # MySQL
+  db:
+    image:  ${IMAGE_NAME}
+    cap_add:
+      - SYS_NICE
+    container_name: ${CON_NAME}
+    command: mysqld --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MySql_Root}
+      MYSQL_DATABASE: ${MySql_DB}
+      MYSQL_USER: ${MySql_USER} 
+      MYSQL_PASSWORD: ${MySql_PASSWORD}
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    ports:
+      - "${MySql_OUT_PORT}:3306"
+    volumes:
+      - "${PWD}/${MySql_OUT_DIR}/data:/var/lib/mysql"
+      - "${PWD}/${MySql_OUT_DIR}/my.cnf:/etc/mysql/conf.d/my.cnf"
+      - "${PWD}/${MySql_OUT_DIR}/sql:/docker-entrypoint-initdb.d"
+      #- "${PWD}/${MySql_OUT_DIR}/init.sql:/docker-entrypoint-initdb.d/init.sql"

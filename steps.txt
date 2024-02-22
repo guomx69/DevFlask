@@ -1,1 +1,40 @@
 https://github.com/guomx69/DevFlask.git
+1)python3.9 -m venv  .env3.9  &&  source ./.env3.9/bin/activate
+
+pip list
+pip install -r requirements.txt
+2)pip install flask SQLAlchemy
+
+3)uvicorn(ASGI,fastapi) vs gunicorn(WSGI,need a special care for fastapi) 
+uvicorn main:app --workers 4
+gunicorn main:app --workers 4 --worker-class uvicorn.workers.UvicornWorker
+
+============================
+----------
+python -m uvicorn main:app --reload 
+uvicorn main:app
+-------------
+gunicorn -w 2 -b 0.0.0.0:8080 app:app
+gunicorn app:app --workers 2 
+gunicorn --bind 0.0.0.0:8080 wsgi:app
+------------
+flask run
+flask run --host=0.0.0.0 --port=7100
+flask run -h localhost -p 3000
+export FLASK_RUN_PORT=8000
+export FLASK_RUN_HOST="127.0.0.1"
+flask run
+
+====================
+adduser taskerUser
+usermod -aG sudo taskerUser
+
+/etc/ssh/sshd_config=>PasswordAuthentication yes
+systemctl restart sshd
+ssh taskerUser@memaptech.store
+git clone the repository; setup local environment.
+===================
+
+
+
+ 
